@@ -4,8 +4,6 @@ public abstract class Product implements Vendavel {
     private double preco;
     private int quantidade;
 
-    
-
     public Product(String nome, double preco, int quantidade) throws QuantidadeInvalidaException {
         if (preco < 0 || quantidade < 0) {
             throw new QuantidadeInvalidaException("Preço ou quantidade não podem ser negativos.");
@@ -31,5 +29,16 @@ public abstract class Product implements Vendavel {
 
     public int getQuantidade() {
         return quantidade;
+    }
+
+    @Override
+    public void vender(int quantidadeDesejada) throws ProdutoIndisponivelException {
+        if (quantidadeDesejada > quantidade) {
+            throw new ProdutoIndisponivelException(
+                "Quantidade solicitada maior que o estoque disponível."
+            );
+        }
+
+        quantidade -= quantidadeDesejada;
     }
 }
