@@ -31,6 +31,15 @@ public abstract class Product implements Vendavel {
         return quantidade;
     }
 
+    public void aplicarDesconto(double percentual) {
+        preco -= preco * (percentual / 100);
+    }
+
+    public void aplicarDesconto(double percentual, double descontoMaximo) {
+        double desconto = Math.min(percentual, descontoMaximo);
+        preco -= preco * (desconto / 100);
+    }
+
     @Override
     public void vender(int quantidadeDesejada) throws ProdutoIndisponivelException {
         if (quantidadeDesejada > quantidade) {
